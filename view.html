@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنفوجرافيك تفاعلي - جمعية التنمية الزراعية بالأحساء (ADAA)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        header {
+            text-align: center;
+            border-bottom: 3px solid #8B4513;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            color: #2E8B57;
+            font-size: 2.5em;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 1.8em;
+            color: #2E8B57;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+            color: #8B4513;
+        }
+        .card ul {
+            padding-right: 20px;
+        }
+        .card li {
+            margin-bottom: 10px;
+        }
+        .swot-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .swot-card { padding: 25px; }
+        .swot-card.strengths { border-top: 5px solid #4CAF50; }
+        .swot-card.weaknesses { border-top: 5px solid #F44336; }
+        .swot-card.opportunities { border-top: 5px solid #2196F3; }
+        .swot-card.threats { border-top: 5px solid #FFC107; }
+
+        .competitor-card {
+            text-align: center;
+        }
+        .competitor-card h3 {
+            color: #2E8B57;
+        }
+        .competitor-card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #2E8B57;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .competitor-card a:hover {
+            background-color: #8B4513;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+         footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>التحليل الشامل والأداء الرقمي</h1>
+            <p>جمعية التنمية الزراعية بالأحساء (ADAA)</p>
+        </header>
+
+        <section id="swot" class="section">
+            <h2 class="section-title">التحليل الرباعي (SWOT Analysis)</h2>
+            <div class="grid-container swot-grid">
+                <div class="card swot-card strengths">
+                    <h3><i class="fas fa-thumbs-up"></i> نقاط القوة</h3>
+                    <ul>
+                        <li>هوية محلية قوية مرتبطة بواحة الأحساء.</li>
+                        <li>قنوات تواصل متعددة (Instagram, Twitter, Snapchat).</li>
+                        <li>رؤية واضحة لدعم الزراعة المستدامة.</li>
+                        <li>شراكات حكومية وإعلامية تعزز المصداقية.</li>
+                    </ul>
+                </div>
+                <div class="card swot-card weaknesses">
+                    <h3><i class="fas fa-thumbs-down"></i> نقاط الضعف</h3>
+                    <ul>
+                        <li>ضعف المحتوى المرئي (فيديوهات وصور عالية الجودة).</li>
+                        <li>قلة عرض قصص النجاح للمزارعين.</li>
+                        <li>غياب المحتوى التفاعلي (استطلاعات، مسابقات).</li>
+                        <li>نقص التقارير الرقمية التي توضح الإنجازات.</li>
+                    </ul>
+                </div>
+                <div class="card swot-card opportunities">
+                    <h3><i class="fas fa-lightbulb"></i> الفرص</h3>
+                    <ul>
+                        <li>الطلب المتزايد على المحتوى الزراعي التنموي.</li>
+                        <li>إمكانية إطلاق مبادرات نوعية رقمية (سلسلة فيديوهات).</li>
+                        <li>الاستفادة من الشراكات لإنتاج محتوى مشترك.</li>
+                        <li>نشر قصص نجاح بالفيديو لتأكيد تأثير الجمعية.</li>
+                    </ul>
+                </div>
+                <div class="card swot-card threats">
+                     <h3><i class="fas fa-exclamation-triangle"></i> التهديدات</h3>
+                    <ul>
+                        <li>منافسون يقدمون محتوى متخصص (جمعية النحالين).</li>
+                        <li>تركيز جغرافي محدود لدى بعض المنافسين قد يجذب جمهورهم المحلي.</li>
+                        <li>محتوى المنافسين موجه لصناعات محددة (مثل التمور).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="performance" class="section">
+            <h2 class="section-title">أداء المحتوى الرقمي (آخر 3 أشهر)</h2>
+            <div class="chart-container">
+                <canvas id="contentPerformanceChart"></canvas>
+            </div>
+        </section>
+        
+        <section id="competitors" class="section">
+            <h2 class="section-title">تحليل المنافسين</h2>
+            <div class="grid-container">
+                <div class="card competitor-card">
+                    <h3>الجمعية التعاونية الزراعية بالأحساء</h3>
+                    <p><strong>المحتوى:</strong> منشورات نصية تعريفية وإعلانات تسجيل.</p>
+                    <p><strong>القصور:</strong> ضعف المحتوى المرئي والتفاعلي.</p>
+                    <a href="https://www.instagram.com/ahsaaco/" target="_blank">زيارة الحساب</a>
+                </div>
+                <div class="card competitor-card">
+                    <h3>جمعية النحالين بالأحساء</h3>
+                    <p><strong>المحتوى:</strong> تخصص واضح في تربية النحل.</p>
+                    <p><strong>القصور:</strong> نطاق خدمة ضيق وتفاعل منخفض.</p>
+                    <a href="https://www.instagram.com/p/C1a_2c1rYyQ/?img_index=1" target="_blank">زيارة الحساب</a>
+                </div>
+                <div class="card competitor-card">
+                    <h3>الجمعية التعاونية الزراعية بالخرج</h3>
+                    <p><strong>المحتوى:</strong> مشاريع تسويقية للمحاصيل.</p>
+                    <p><strong>القصور:</strong> تركيز جغرافي محدود.</p>
+                    <a href="https://www.instagram.com/alkharj_coop/" target="_blank">زيارة الحساب</a>
+                </div>
+                 <div class="card competitor-card">
+                    <h3>المركز الوطني للنخيل والتمور</h3>
+                    <p><strong>المحتوى:</strong> موارد حكومية ودعم بحثي.</p>
+                    <p><strong>القصور:</strong> محتوى موجه لصناعة التمور فقط.</p>
+                    <a href="https://www.instagram.com/ncpd.gov.sa/" target="_blank">زيارة الحساب</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="recommendations" class="section">
+            <h2 class="section-title">التوصيات الاستراتيجية</h2>
+            <div class="card">
+                <ul>
+                    <li><strong>تعزيز الإنتاج المرئي:</strong> إطلاق سلسلة فيديو شهرية وتصوير مبادرات ميدانية باستخدام لقطات احترافية.</li>
+                    <li><strong>تطبيق تقويم محتوى تفاعلي:</strong> تنظيم استطلاعات رأي، مسابقات، وقصص نجاح لزيادة تفاعل الجمهور.</li>
+                    <li><strong>إنشاء منصة مجتمع رقمية:</strong> منتدى أو مجموعة خاصة لتبادل الخبرات بين المزارعين.</li>
+                    <li><strong>إطلاق تقرير سنوي مرئي:</strong> تصميم إنفوجرافيك وPDF يلخص الإنجازات والأرقام السنوية بشفافية.</li>
+                    <li><strong>توسيع الشراكات المعرفية:</strong> التعاون مع جامعات ومراكز بحثية لإثراء المحتوى الزراعي المقدم.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <p>تم إنشاء هذا التقرير التفاعلي بواسطة الذكاء الاصطناعي بناءً على الملفات المرفقة.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('contentPerformanceChart').getContext('2d');
+            const contentPerformanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['فبراير', 'مارس', 'أبريل'], // Example months
+                    datasets: [{
+                        label: 'معدل الوصول (Reach)',
+                        data: [18107, 12513, 22176], // Data from ADAA_Content_Full_3Months_Unique.csv
+                        borderColor: '#2E8B57',
+                        backgroundColor: 'rgba(46, 139, 87, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'معدل التفاعل (Engagement)',
+                        data: [701, 401, 715], // Data from ADAA_Content_Full_3Months_Unique.csv
+                        borderColor: '#8B4513',
+                        backgroundColor: 'rgba(139, 69, 19, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                             title: {
+                                display: true,
+                                text: 'العدد'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    interaction: {
+                      mode: 'nearest',
+                      axis: 'x',
+                      intersect: false
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
