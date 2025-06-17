@@ -3,274 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إنفوجرافيك تفاعلي - جمعية التنمية الزراعية بالأحساء (ADAA)</title>
+    <title>نبذة من الخطة الاستراتيجية الرقمية - ADAA</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+        /* --- Color Palette & Variables --- */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --text-primary: #333;
+            --text-secondary: #555;
+            --primary-color: #2E8B57;
+            --secondary-color: #8B4513;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.dark-mode {
+            --bg-gradient: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+            --card-bg: rgba(44, 62, 80, 0.75);
+            --glass-bg: rgba(44, 62, 80, 0.4);
+            --text-primary: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
             margin: 0;
             padding: 20px;
-            line-height: 1.6;
+            line-height: 1.8;
+            transition: background 0.5s ease, color 0.5s ease;
         }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-        header {
-            text-align: center;
-            border-bottom: 3px solid #8B4513;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        header h1 {
-            color: #2E8B57;
-            font-size: 2.5em;
-            margin: 0;
-        }
-        header p {
-            font-size: 1.2em;
-            color: #555;
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        .section-title {
-            font-size: 1.8em;
-            color: #2E8B57;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ddd;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .card h3 {
-            margin-top: 0;
-            font-size: 1.4em;
-            color: #8B4513;
-        }
-        .card ul {
-            padding-right: 20px;
-        }
-        .card li {
-            margin-bottom: 10px;
-        }
-        .swot-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        .swot-card { padding: 25px; }
-        .swot-card.strengths { border-top: 5px solid #4CAF50; }
-        .swot-card.weaknesses { border-top: 5px solid #F44336; }
-        .swot-card.opportunities { border-top: 5px solid #2196F3; }
-        .swot-card.threats { border-top: 5px solid #FFC107; }
 
-        .competitor-card {
-            text-align: center;
-        }
-        .competitor-card h3 {
-            color: #2E8B57;
-        }
-        .competitor-card a {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #2E8B57;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .competitor-card a:hover {
-            background-color: #8B4513;
-        }
-        .chart-container {
-            position: relative;
-            height: 400px;
-            width: 100%;
-        }
-         footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ccc;
-            color: #777;
+        /* --- Dark Mode Toggle --- */
+        .theme-switch-wrapper { display: flex; align-items: center; position: fixed; top: 20px; left: 20px; z-index: 1000; }
+        .theme-switch { display: inline-block; height: 34px; position: relative; width: 60px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; border-radius: 34px; }
+        .slider:before { background-color: #fff; bottom: 4px; content: ""; height: 26px; left: 4px; position: absolute; transition: .4s; width: 26px; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary-color); }
+        input:checked + .slider:before { transform: translateX(26px); }
+        .theme-switch-wrapper .fa-solid { margin: 0 10px; color: var(--text-primary); }
+
+        .container { max-width: 1200px; margin: auto; background: transparent; padding: 15px; }
+        header { text-align: center; padding-bottom: 20px; margin-bottom: 50px; }
+        header h1 { font-size: 2.8em; color: var(--primary-color); }
+        header h1 .fa-seedling { margin-left: 15px; }
+        header p { font-size: 1.2em; color: var(--text-secondary); }
+        .section { margin-bottom: 60px; }
+        .section-title { font-size: 2.2em; text-align: center; margin-bottom: 40px; color: var(--primary-color); font-weight: 700; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 15px; padding: 30px; box-shadow: 0 8px 32px 0 var(--shadow-color); transition: transform 0.3s, box-shadow 0.3s; }
+        .glass-card { background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+
+        /* --- Responsive Pitch Section --- */
+        .from-to-container { display: flex; justify-content: space-around; align-items: center; margin-top: 20px; flex-wrap: nowrap; flex-direction: row;}
+        .from-to-box { width: 42%; padding: 15px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); }
+        .from-to-box h4 { font-size: 1.3em; padding-bottom: 10px; margin-bottom: 15px; text-align: center; }
+        .from-box h4 { color: #D32F2F; border-bottom: 2px solid #D32F2F;}
+        .to-box h4 { color: #388E3C; border-bottom: 2px solid #388E3C;}
+        .from-to-box ul { padding: 0; list-style: none; }
+        .from-to-box li { display: flex; align-items: flex-start; margin-bottom: 10px; }
+        .from-to-box li .fa-solid { margin-left: 8px; margin-top: 4px; }
+        .from-box li .fa-solid { color: #D32F2F; }
+        .to-box li .fa-solid { color: #388E3C; }
+        .transformation-arrow { font-size: 4em; color: var(--primary-color); margin: 0 15px; transition: transform 0.4s ease; }
+        .pitch-benefits { margin-top: 30px; text-align: center; }
+        .pitch-benefits .grid-container { gap: 15px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+        .pitch-benefits .card { padding: 15px; text-align: center; background-color: var(--card-bg); }
+        .pitch-benefits .fa-solid { font-size: 1.8em; color: var(--secondary-color); margin-bottom: 10px;}
+        
+        /* --- Other Sections (SWOT, Competitors, etc.) --- */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .flip-card { background-color: transparent; width: 100%; height: 280px; perspective: 1000px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 4px 8px 0 var(--shadow-color); border-radius: 15px; }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 15px; padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .flip-card-front { background: var(--card-bg); }
+        .flip-card-back { background: var(--card-bg); transform: rotateY(180deg); padding: 20px; }
+        .flip-card-back ul { list-style: none; padding: 0; text-align: right; }
+        .flip-card h3 { font-size: 1.8em; margin: 0; }
+        .flip-card h3 .fa-solid { font-size: 1.5em; display: block; margin-bottom: 15px; }
+
+        /* --- Competitors Section Improved --- */
+        .competitor-card { padding: 0; overflow: hidden; transition: all 0.3s ease; }
+        .competitor-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px var(--shadow-color); }
+        .competitor-card h3 { padding: 20px 25px; margin: 0; background-color: rgba(0,0,0,0.05); color: var(--primary-color); display: flex; align-items: center; font-size: 1.2em; }
+        body.dark-mode .competitor-card h3 { background-color: rgba(255,255,255,0.05); }
+        .competitor-card h3 .fa-solid { margin-left: 10px; }
+        .competitor-content { padding: 25px; }
+        .competitor-analysis { margin-top: 15px; text-align: right; }
+        .competitor-analysis h4 { margin: 0 0 8px 0; font-size: 1.1em; display: flex; align-items: center; }
+        .competitor-analysis p { margin: 0; padding-right: 25px; font-size: 0.95em; color: var(--text-secondary); }
+        .analysis-content h4 { color: #388E3C; }
+        .analysis-shortcoming h4 { color: #D32F2F; }
+
+        .service-title { text-align: center; padding: 15px; background-color: var(--primary-color); color: #fff; font-size: 1.4em; font-weight: bold; border-radius: 8px; margin-bottom: 25px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
+        .feature-box { background-color: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color); transition: all 0.3s ease; }
+        body.dark-mode .feature-box { background-color: rgba(0,0,0,0.1); }
+        .feature-box:hover { transform: translateY(-5px); box-shadow: 0 6px 15px var(--shadow-color); }
+        .feature-box .fa-solid { font-size: 2.5em; color: var(--secondary-color); margin-bottom: 15px; }
+        .feature-box h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.1em; color: var(--primary-color); }
+        .feature-box p { font-size: 0.9em; line-height: 1.5; color: var(--text-secondary); }
+        footer { text-align: center; margin-top: 40px; padding-top: 20px; color: var(--text-secondary); }
+
+        /* --- MOBILE RESPONSIVE FIX --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2em; }
+            .section-title { font-size: 1.8em; }
+            .from-to-container { flex-direction: column; }
+            .from-to-box { width: 90%; }
+            .transformation-arrow { transform: rotate(90deg); margin: 25px 0; }
         }
     </style>
 </head>
 <body>
+
+    <div class="theme-switch-wrapper">
+        <i class="fa-solid fa-sun"></i>
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider"></div>
+        </label>
+        <i class="fa-solid fa-moon"></i>
+    </div>
+
     <div class="container">
-        <header>
-            <h1>التحليل الشامل والأداء الرقمي</h1>
-            <p>جمعية التنمية الزراعية بالأحساء (ADAA)</p>
+        <header data-aos="fade-down">
+            <h1><i class="fa-solid fa-seedling"></i>نبذة من الخطة الاستراتيجية الرقمية</h1>
+            <p>مقترح مقدم إلى جمعية التنمية الزراعية بالأحساء (ADAA)</p>
         </header>
+        
+        <section id="pitch" class="section">
+            <h2 class="section-title" data-aos="fade-up">النقلة النوعية</h2>
+            <div class="card glass-card" data-aos="zoom-in-up">
+                <div class="from-to-container">
+                    <div class="from-to-box" data-aos="fade-right" data-aos-delay="200"><h4>الوضع الحالي</h4><ul><li><i class="fa-solid fa-chain-broken"></i> محتوى وصفي ومباشر</li><li><i class="fa-solid fa-palette"></i> هوية بصرية غير موحدة</li><li><i class="fa-solid fa-comment-slash"></i> تفاعل محدود مع الجمهور</li></ul></div>
+                    <div class="transformation-arrow" data-aos="zoom-in" data-aos-delay="300"><i class="fa-solid fa-circle-arrow-left"></i></div>
+                    <div class="from-to-box to-box" data-aos="fade-left" data-aos-delay="200"><h4>النقلة النوعية</h4><ul><li><i class="fa-solid fa-book-open-reader"></i> محتوى قصصي مؤثر</li><li><i class="fa-solid fa-gem"></i> هوية بصرية احترافية</li><li><i class="fa-solid fa-comments"></i> بناء مجتمع رقمي متفاعل</li></ul></div>
+                </div>
+                <div class="pitch-benefits"><h3>وهذا يعني للجمعية:</h3><div class="grid-container"><div class="card"><i class="fa-solid fa-shield-halved"></i> ترسيخ المصداقية</div><div class="card"><i class="fa-solid fa-handshake-simple"></i> جذب الشركاء والداعمين</div><div class="card"><i class="fa-solid fa-users-line"></i> زيادة التفاعل المجتمعي</div></div></div>
+            </div>
+        </section>
 
         <section id="swot" class="section">
-            <h2 class="section-title">التحليل الرباعي (SWOT Analysis)</h2>
-            <div class="grid-container swot-grid">
-                <div class="card swot-card strengths">
-                    <h3><i class="fas fa-thumbs-up"></i> نقاط القوة</h3>
-                    <ul>
-                        <li>هوية محلية قوية مرتبطة بواحة الأحساء.</li>
-                        <li>قنوات تواصل متعددة (Instagram, Twitter, Snapchat).</li>
-                        <li>رؤية واضحة لدعم الزراعة المستدامة.</li>
-                        <li>شراكات حكومية وإعلامية تعزز المصداقية.</li>
-                    </ul>
-                </div>
-                <div class="card swot-card weaknesses">
-                    <h3><i class="fas fa-thumbs-down"></i> نقاط الضعف</h3>
-                    <ul>
-                        <li>ضعف المحتوى المرئي (فيديوهات وصور عالية الجودة).</li>
-                        <li>قلة عرض قصص النجاح للمزارعين.</li>
-                        <li>غياب المحتوى التفاعلي (استطلاعات، مسابقات).</li>
-                        <li>نقص التقارير الرقمية التي توضح الإنجازات.</li>
-                    </ul>
-                </div>
-                <div class="card swot-card opportunities">
-                    <h3><i class="fas fa-lightbulb"></i> الفرص</h3>
-                    <ul>
-                        <li>الطلب المتزايد على المحتوى الزراعي التنموي.</li>
-                        <li>إمكانية إطلاق مبادرات نوعية رقمية (سلسلة فيديوهات).</li>
-                        <li>الاستفادة من الشراكات لإنتاج محتوى مشترك.</li>
-                        <li>نشر قصص نجاح بالفيديو لتأكيد تأثير الجمعية.</li>
-                    </ul>
-                </div>
-                <div class="card swot-card threats">
-                     <h3><i class="fas fa-exclamation-triangle"></i> التهديدات</h3>
-                    <ul>
-                        <li>منافسون يقدمون محتوى متخصص (جمعية النحالين).</li>
-                        <li>تركيز جغرافي محدود لدى بعض المنافسين قد يجذب جمهورهم المحلي.</li>
-                        <li>محتوى المنافسين موجه لصناعات محددة (مثل التمور).</li>
-                    </ul>
-                </div>
+            <h2 class="section-title" data-aos="fade-up">التحليل الرباعي التفاعلي</h2>
+            <div class="grid-container">
+                <div class="flip-card" data-aos="fade-up" data-aos-delay="100"><div class="flip-card-inner"><div class="flip-card-front" style="color:#4CAF50;"><h3><i class="fa-solid fa-thumbs-up"></i>نقاط القوة</h3></div><div class="flip-card-back"><h4>نقاط القوة الرئيسية</h4><ul><li>هوية محلية قوية</li><li>قنوات تواصل متعددة</li><li>رؤية واضحة للاستدامة</li><li>شراكات حكومية موثوقة</li></ul></div></div></div>
+                <div class="flip-card" data-aos="fade-up" data-aos-delay="200"><div class="flip-card-inner"><div class="flip-card-front" style="color:#F44336;"><h3><i class="fa-solid fa-thumbs-down"></i>نقاط الضعف</h3></div><div class="flip-card-back"><h4>نقاط الضعف الحالية</h4><ul><li>ضعف المحتوى المرئي</li><li>قلة قصص النجاح</li><li>غياب المحتوى التفاعلي</li><li>نقص التقارير الرقمية</li></ul></div></div></div>
+                <div class="flip-card" data-aos="fade-up" data-aos-delay="300"><div class="flip-card-inner"><div class="flip-card-front" style="color:#2196F3;"><h3><i class="fa-solid fa-lightbulb"></i>الفرص</h3></div><div class="flip-card-back"><h4>الفرص المتاحة</h4><ul><li>طلب متزايد على المحتوى</li><li>إطلاق مبادرات رقمية</li><li>إنتاج محتوى مشترك</li><li>نشر قصص نجاح بالفيديو</li></ul></div></div></div>
+                <div class="flip-card" data-aos="fade-up" data-aos-delay="400"><div class="flip-card-inner"><div class="flip-card-front" style="color:#FFC107;"><h3><i class="fa-solid fa-triangle-exclamation"></i>التهديدات</h3></div><div class="flip-card-back"><h4>التهديدات المحتملة</h4><ul><li>منافسون بمحتوى متخصص</li><li>تركيز جغرافي للمنافسين</li><li>دعم استثنائي لمنافسين</li></ul></div></div></div>
             </div>
         </section>
 
         <section id="performance" class="section">
-            <h2 class="section-title">أداء المحتوى الرقمي (آخر 3 أشهر)</h2>
-            <div class="chart-container">
-                <canvas id="contentPerformanceChart"></canvas>
-            </div>
+            <h2 class="section-title" data-aos="fade-up">مؤشرات الأداء الرقمي</h2>
+            <div class="card" data-aos="fade-up"><p style="text-align: center; color: var(--text-secondary);">توضح الفجوة بين الوصول والتفاعل فرصة تحسين جودة المحتوى لزيادة مشاركة الجمهور.</p><div class="chart-container" style="margin-top:20px;"><canvas id="contentPerformanceChart"></canvas></div></div>
         </section>
         
         <section id="competitors" class="section">
-            <h2 class="section-title">تحليل المنافسين</h2>
+            <h2 class="section-title" data-aos="fade-up">تحليل المنافسين الرئيسيين</h2>
             <div class="grid-container">
-                <div class="card competitor-card">
-                    <h3>الجمعية التعاونية الزراعية بالأحساء</h3>
-                    <p><strong>المحتوى:</strong> منشورات نصية تعريفية وإعلانات تسجيل.</p>
-                    <p><strong>القصور:</strong> ضعف المحتوى المرئي والتفاعلي.</p>
-                    <a href="https://www.instagram.com/ahsaaco/" target="_blank">زيارة الحساب</a>
-                </div>
-                <div class="card competitor-card">
-                    <h3>جمعية النحالين بالأحساء</h3>
-                    <p><strong>المحتوى:</strong> تخصص واضح في تربية النحل.</p>
-                    <p><strong>القصور:</strong> نطاق خدمة ضيق وتفاعل منخفض.</p>
-                    <a href="https://www.instagram.com/p/C1a_2c1rYyQ/?img_index=1" target="_blank">زيارة الحساب</a>
-                </div>
-                <div class="card competitor-card">
-                    <h3>الجمعية التعاونية الزراعية بالخرج</h3>
-                    <p><strong>المحتوى:</strong> مشاريع تسويقية للمحاصيل.</p>
-                    <p><strong>القصور:</strong> تركيز جغرافي محدود.</p>
-                    <a href="https://www.instagram.com/alkharj_coop/" target="_blank">زيارة الحساب</a>
-                </div>
-                 <div class="card competitor-card">
-                    <h3>المركز الوطني للنخيل والتمور</h3>
-                    <p><strong>المحتوى:</strong> موارد حكومية ودعم بحثي.</p>
-                    <p><strong>القصور:</strong> محتوى موجه لصناعة التمور فقط.</p>
-                    <a href="https://www.instagram.com/ncpd.gov.sa/" target="_blank">زيارة الحساب</a>
-                </div>
+                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="100"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالرياض (RADA)</h3><div class="competitor-content"><div class="competitor-analysis analysis-content"><h4><i class="fa-solid fa-circle-check"></i> المحتوى الحالي</h4><p>يركز على الشراكات الاستراتيجية والفعاليات الكبرى.</p></div><div class="competitor-analysis analysis-shortcoming"><h4><i class="fa-solid fa-circle-xmark"></i> أوجه القصور</h4><p>قد يكون موجهاً للمستثمرين أكثر من المزارع المحلي.</p></div></div></div>
+                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="200"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالمدينة (MADS)</h3><div class="competitor-content"><div class="competitor-analysis analysis-content"><h4><i class="fa-solid fa-circle-check"></i> المحتوى الحالي</h4><p>يغطي ورش العمل وتسويق المنتجات المحلية (كالتمور).</p></div><div class="competitor-analysis analysis-shortcoming"><h4><i class="fa-solid fa-circle-xmark"></i> أوجه القصور</h4><p>تركيزه على البيئة الزراعية الخاصة بمنطقة المدينة.</p></div></div></div>
+                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="300"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالعلا (MACSA)</h3><div class="competitor-content"><div class="competitor-analysis analysis-content"><h4><i class="fa-solid fa-circle-check"></i> المحتوى الحالي</h4><p>محتوى احترافي يرتبط بالمشاريع السياحية والزراعة المستدامة.</p></div><div class="competitor-analysis analysis-shortcoming"><h4><i class="fa-solid fa-circle-xmark"></i> أوجه القصور</h4><p>نموذجه يعتمد على دعم استثنائي يصعب تطبيقه.</p></div></div></div>
+                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="400"><h3><i class="fa-solid fa-building-columns"></i> الجمعية التعاونية الزراعية بالخرج</h3><div class="competitor-content"><div class="competitor-analysis analysis-content"><h4><i class="fa-solid fa-circle-check"></i> المحتوى الحالي</h4><p>مشاريع تسويقية للمحاصيل المحلية.</p></div><div class="competitor-analysis analysis-shortcoming"><h4><i class="fa-solid fa-circle-xmark"></i> أوجه القصور</h4><p>تصميم تقليدي وتركيز جغرافي خارج الأحساء.</p></div></div></div>
             </div>
         </section>
 
-        <section id="recommendations" class="section">
-            <h2 class="section-title">التوصيات الاستراتيجية</h2>
-            <div class="card">
-                <ul>
-                    <li><strong>تعزيز الإنتاج المرئي:</strong> إطلاق سلسلة فيديو شهرية وتصوير مبادرات ميدانية باستخدام لقطات احترافية.</li>
-                    <li><strong>تطبيق تقويم محتوى تفاعلي:</strong> تنظيم استطلاعات رأي، مسابقات، وقصص نجاح لزيادة تفاعل الجمهور.</li>
-                    <li><strong>إنشاء منصة مجتمع رقمية:</strong> منتدى أو مجموعة خاصة لتبادل الخبرات بين المزارعين.</li>
-                    <li><strong>إطلاق تقرير سنوي مرئي:</strong> تصميم إنفوجرافيك وPDF يلخص الإنجازات والأرقام السنوية بشفافية.</li>
-                    <li><strong>توسيع الشراكات المعرفية:</strong> التعاون مع جامعات ومراكز بحثية لإثراء المحتوى الزراعي المقدم.</li>
-                </ul>
+        <section id="proposal" class="section">
+            <h2 class="section-title" data-aos="fade-up">باقة الانطلاقة الاستراتيجية</h2>
+            <div class="card glass-card" data-aos="zoom-in-up">
+                <div class="service-title" data-aos="fade-in" data-aos-delay="100">كتابة وتصميم محتوى احترافي (لمدة 3 أشهر)</div>
+                <div class="features-grid">
+                    <div class="feature-box" data-aos="fade-up" data-aos-delay="200"><i class="fa-solid fa-palette"></i><h4>بناء هوية راسخة</h4><p>تطبيق هوية بصرية ولغوية موحدة ومحترفة لبناء صورة ذهنية قوية.</p></div>
+                    <div class="feature-box" data-aos="fade-up" data-aos-delay="300"><i class="fa-solid fa-users-gear"></i><h4>إدارة تفاعلية</h4><p>تحويل الحسابات لمساحة حوار تجذب المزارعين والمهتمين عبر محتوى مدروس.</p></div>
+                    <div class="feature-box" data-aos="fade-up" data-aos-delay="400"><i class="fa-solid fa-hourglass-start"></i><h4>توفير الوقت والجهد</h4><p>نتولى العملية بالكامل ليتيح لفريقكم التركيز على المبادرات الميدانية.</p></div>
+                    <div class="feature-box" data-aos="fade-up" data-aos-delay="500"><i class="fa-solid fa-chart-line"></i><h4>متابعة وتحسين الأداء</h4><p>تحليل المحتوى الأفضل أداءً لتحسين الاستراتيجية وتحقيق أفضل النتائج العضوية.</p></div>
+                    <div class="feature-box" data-aos="fade-up" data-aos-delay="600"><i class="fa-solid fa-calendar-check"></i><h4>فترة مثالية (3 أشهر)</h4><p>مدة كافية لرؤية نتائج أولية قوية ومقنعة، مع إمكانية تجديد التعاون لمواصلة النمو.</p></div>
+                </div>
             </div>
         </section>
 
         <footer>
-            <p>تم إنشاء هذا التقرير التفاعلي بواسطة الذكاء الاصطناعي بناءً على الملفات المرفقة.</p>
+            <p>هذا المقترح التفاعلي المتقدم يوضح رؤيتنا الاستراتيجية. نتطلع لبدء رحلة النجاح الرقمي للجمعية.</p>
         </footer>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            if (currentTheme === 'dark-mode') {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light-mode');
+            }
+            setTimeout(() => {
+                updateChartColors();
+            }, 100);
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+
+        let myChart;
+        function updateChartColors() {
+            if(myChart) {
+                myChart.options.scales.y.ticks.color = getComputedStyle(document.body).getPropertyValue('--text-secondary');
+                myChart.options.scales.x.ticks.color = getComputedStyle(document.body).getPropertyValue('--text-secondary');
+                myChart.options.plugins.legend.labels.color = getComputedStyle(document.body).getPropertyValue('--text-primary');
+                myChart.update();
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function () {
             const ctx = document.getElementById('contentPerformanceChart').getContext('2d');
-            const contentPerformanceChart = new Chart(ctx, {
-                type: 'line',
+            myChart = new Chart(ctx, {
+                type: 'bar',
                 data: {
-                    labels: ['فبراير', 'مارس', 'أبريل'], // Example months
+                    labels: ['فبراير', 'مارس', 'أبريل'],
                     datasets: [{
                         label: 'معدل الوصول (Reach)',
-                        data: [18107, 12513, 22176], // Data from ADAA_Content_Full_3Months_Unique.csv
-                        borderColor: '#2E8B57',
-                        backgroundColor: 'rgba(46, 139, 87, 0.1)',
-                        fill: true,
-                        tension: 0.4
+                        data: [18107, 12513, 22176],
+                        backgroundColor: 'rgba(46, 139, 87, 0.7)',
+                        borderColor: 'rgba(46, 139, 87, 1)',
+                        borderWidth: 1,
+                        borderRadius: 5
                     }, {
                         label: 'معدل التفاعل (Engagement)',
-                        data: [701, 401, 715], // Data from ADAA_Content_Full_3Months_Unique.csv
-                        borderColor: '#8B4513',
-                        backgroundColor: 'rgba(139, 69, 19, 0.1)',
-                        fill: true,
-                        tension: 0.4
+                        data: [701, 401, 715],
+                        backgroundColor: 'rgba(139, 69, 19, 0.7)',
+                        borderColor: 'rgba(139, 69, 19, 1)',
+                        borderWidth: 1,
+                        borderRadius: 5
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                             title: {
-                                display: true,
-                                text: 'العدد'
-                            }
-                        }
+                    animation: {
+                        duration: 1500
                     },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                        }
+                    scales: { 
+                        y: { beginAtZero: true, ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-secondary') }},
+                        x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-secondary') }}
                     },
-                    interaction: {
-                      mode: 'nearest',
-                      axis: 'x',
-                      intersect: false
+                    plugins: { 
+                        legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-primary') } },
+                        tooltip: { titleColor: '#fff', bodyColor: '#fff' }
                     }
                 }
             });
