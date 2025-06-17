@@ -93,17 +93,15 @@
         .flip-card h3 .fa-solid { font-size: 1.5em; display: block; margin-bottom: 15px; }
 
         /* --- Competitors Section Improved --- */
-        .competitor-card { padding: 0; overflow: hidden; transition: all 0.3s ease; }
+        .competitor-card { padding: 25px; transition: all 0.3s ease; text-align: center; }
         .competitor-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px var(--shadow-color); }
-        .competitor-card h3 { padding: 20px 25px; margin: 0; background-color: rgba(0,0,0,0.05); color: var(--primary-color); display: flex; align-items: center; font-size: 1.2em; }
-        body.dark-mode .competitor-card h3 { background-color: rgba(255,255,255,0.05); }
+        .competitor-card h3 { color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 1.2em; margin-top: 0; margin-bottom: 15px; }
         .competitor-card h3 .fa-solid { margin-left: 10px; }
-        .competitor-content { padding: 25px; }
-        .competitor-analysis { margin-top: 15px; text-align: right; }
-        .competitor-analysis h4 { margin: 0 0 8px 0; font-size: 1.1em; display: flex; align-items: center; }
-        .competitor-analysis p { margin: 0; padding-right: 25px; font-size: 0.95em; color: var(--text-secondary); }
-        .analysis-content h4 { color: #388E3C; }
-        .analysis-shortcoming h4 { color: #D32F2F; }
+        .competitor-card p {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+            margin: 0;
+        }
 
         .service-title { text-align: center; padding: 15px; background-color: var(--primary-color); color: #fff; font-size: 1.4em; font-weight: bold; border-radius: 8px; margin-bottom: 25px; }
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
@@ -170,12 +168,12 @@
         </section>
         
         <section id="competitors" class="section">
-            <h2 class="section-title" data-aos="fade-up">تحليل المنافسين الرئيسيين</h2>
+            <h2 class="section-title" data-aos="fade-up">نظرة على الساحة الرقمية</h2>
             <div class="grid-container">
-                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="100"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالرياض (RADA)</h3><div class="competitor-content"><div class="competitor-analysis analysis-content"><h4><i class="fa-solid fa-circle-check"></i> المحتوى الحالي</h4><p>يركز على الشراكات الاستراتيجية والفعاليات الكبرى.</p></div><div class="competitor-analysis analysis-shortcoming"><h4><i class="fa-solid fa-circle-xmark"></i> أوجه القصور</h4><p>قد يكون موجهاً للمستثمرين أكثر من المزارع المحلي.</p></div></div></div>
-                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="200"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالمدينة (MADS)</h3><div class="competitor-content"><div class="competitor-analysis analysis-content"><h4><i class="fa-solid fa-circle-check"></i> المحتوى الحالي</h4><p>يغطي ورش العمل وتسويق المنتجات المحلية (كالتمور).</p></div><div class="competitor-analysis analysis-shortcoming"><h4><i class="fa-solid fa-circle-xmark"></i> أوجه القصور</h4><p>تركيزه على البيئة الزراعية الخاصة بمنطقة المدينة.</p></div></div></div>
-                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="300"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالعلا (MACSA)</h3><div class="competitor-content"><div class="competitor-analysis analysis-content"><h4><i class="fa-solid fa-circle-check"></i> المحتوى الحالي</h4><p>محتوى احترافي يرتبط بالمشاريع السياحية والزراعة المستدامة.</p></div><div class="competitor-analysis analysis-shortcoming"><h4><i class="fa-solid fa-circle-xmark"></i> أوجه القصور</h4><p>نموذجه يعتمد على دعم استثنائي يصعب تطبيقه.</p></div></div></div>
-                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="400"><h3><i class="fa-solid fa-building-columns"></i> الجمعية التعاونية الزراعية بالخرج</h3><div class="competitor-content"><div class="competitor-analysis analysis-content"><h4><i class="fa-solid fa-circle-check"></i> المحتوى الحالي</h4><p>مشاريع تسويقية للمحاصيل المحلية.</p></div><div class="competitor-analysis analysis-shortcoming"><h4><i class="fa-solid fa-circle-xmark"></i> أوجه القصور</h4><p>تصميم تقليدي وتركيز جغرافي خارج الأحساء.</p></div></div></div>
+                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="100"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالرياض (RADA)</h3><p>تركز على الشراكات الاستراتيجية والفعاليات الكبرى في العاصمة.</p></div>
+                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="200"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالمدينة (MADS)</h3><p>تغطي ورش العمل وتسويق المنتجات المحلية (كالتمور).</p></div>
+                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="300"><h3><i class="fa-solid fa-building-columns"></i> جمعية التنمية الزراعية بالعلا (MACSA)</h3><p>تقدم محتوى احترافي يرتبط بمشاريع العلا السياحية والزراعة المستدامة.</p></div>
+                <div class="card competitor-card" data-aos="fade-up" data-aos-delay="400"><h3><i class="fa-solid fa-building-columns"></i> الجمعية التعاونية الزراعية بالخرج</h3><p>تعرض مشاريع تسويقية للمحاصيل المحلية بتصميم تقليدي.</p></div>
             </div>
         </section>
 
